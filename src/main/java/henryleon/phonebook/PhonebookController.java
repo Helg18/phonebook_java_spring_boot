@@ -32,4 +32,9 @@ public class PhonebookController {
     public List getByNumber(@PathVariable Long number) {
         return contacts.stream().filter(x -> x.getTelefono() == number).collect(Collectors.toList());
     }
+
+    @RequestMapping(value = "/searchByName/{name}", method = RequestMethod.GET)
+    public List getByNumber(@PathVariable String name) {
+        return contacts.stream().filter(x -> x.getNombre().equals(name)).collect(Collectors.toList());
+    }
 }
