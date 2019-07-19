@@ -1,12 +1,14 @@
 package henryleon.phonebook;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @EnableAutoConfiguration
@@ -24,5 +26,10 @@ public class PhonebookController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List all() {
         return contacts;
+    }
+
+    @RequestMapping(value = "/searchByNumber/{number}", method = RequestMethod.GET)
+    public List getByNumber(@PathVariable Long number) {
+        return contacts.stream().filter(x -> x.getTelefono() == number).collect(Collectors.toList());
     }
 }
