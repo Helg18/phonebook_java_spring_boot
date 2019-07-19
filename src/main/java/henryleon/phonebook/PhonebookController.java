@@ -64,4 +64,16 @@ public class PhonebookController {
 
         return contacts;
     }
+
+    @RequestMapping(value = "/delete/{number}", method = RequestMethod.DELETE)
+    public List delete(@PathVariable Long number){
+        for (Contact contact : contacts) {
+            if (contact.getTelefono() == number) {
+                contacts.remove(contact);
+                break;
+            }
+        }
+
+        return contacts;
+    }
 }
