@@ -1,10 +1,7 @@
 package henryleon.phonebook;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,5 +43,11 @@ public class PhonebookController {
     @RequestMapping(value = "/searchByEmail/{email}", method = RequestMethod.GET)
     public List getByEmail(@PathVariable String email) {
         return contacts.stream().filter(x -> x.getEmail().equals(email)).collect(Collectors.toList());
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public List create(@RequestBody Contact newContact){
+        contacts.add(newContact);
+        return contacts;
     }
 }
