@@ -50,4 +50,18 @@ public class PhonebookController {
         contacts.add(newContact);
         return contacts;
     }
+
+    @RequestMapping(value = "/update/{number}", method = RequestMethod.PUT)
+    public List update(@PathVariable Long number, @RequestBody Contact updateContact){
+        for (Contact contact : contacts) {
+            if (contact.getTelefono() == number){
+                contact.setNombre(updateContact.getNombre());
+                contact.setApellido(updateContact.getApellido());
+                contact.setEmail(updateContact.getEmail());
+                contact.setTelefono(updateContact.getTelefono());
+            }
+        }
+
+        return contacts;
+    }
 }
