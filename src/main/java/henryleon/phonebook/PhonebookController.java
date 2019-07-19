@@ -42,4 +42,9 @@ public class PhonebookController {
     public List getByLastName(@PathVariable String lastName) {
         return contacts.stream().filter(x -> x.getApellido().equals(lastName)).collect(Collectors.toList());
     }
+
+    @RequestMapping(value = "/searchByEmail/{email}", method = RequestMethod.GET)
+    public List getByEmail(@PathVariable String email) {
+        return contacts.stream().filter(x -> x.getEmail().equals(email)).collect(Collectors.toList());
+    }
 }
