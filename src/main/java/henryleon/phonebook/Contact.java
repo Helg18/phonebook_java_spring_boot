@@ -1,10 +1,22 @@
 package henryleon.phonebook;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Contact {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
     private String nombre;
     private String apellido;
     private String email;
     private long telefono;
+
+    public Contact() {}
 
     public Contact(String nombre, String apellido, String email, long telefono) {
         this.nombre = nombre;
@@ -49,4 +61,7 @@ public class Contact {
         return this.getNombre() + " " + this.getApellido();
     }
 
+    public Long getId() {
+        return id;
+    }
 }

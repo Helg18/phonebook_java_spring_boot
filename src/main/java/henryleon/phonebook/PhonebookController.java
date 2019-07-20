@@ -1,5 +1,6 @@
 package henryleon.phonebook;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,69 +12,68 @@ import java.util.stream.Collectors;
 @EnableAutoConfiguration
 @RequestMapping(value = "/contacts")
 public class PhonebookController {
-    public List<Contact> contacts;
+    private ContactsRepository contactsRepository;
 
-    public PhonebookController() {
-        contacts = new ArrayList<>();
-        contacts.add(new Contact("Henry", "Leon", "helg18@gmail.com", 584121234567L));
-        contacts.add(new Contact("Alisson", "Leon", "aclm@gmail.com", 584241212121L));
-        contacts.add(new Contact("Doris", "Mora", "dmmq@gmail.com", 584261478520L));
+    @Autowired
+    public PhonebookController(ContactsRepository contactsRepository) {
+        this.contactsRepository = contactsRepository;
     }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List all() {
-        return contacts;
+        return this.contactsRepository.findAll();
     }
 
     @RequestMapping(value = "/searchByNumber/{number}", method = RequestMethod.GET)
     public List getByNumber(@PathVariable Long number) {
-        return contacts.stream().filter(x -> x.getTelefono() == number).collect(Collectors.toList());
+        return this.contactsRepository.findAll().stream().filter(x -> x.getTelefono() == number).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/searchByName/{name}", method = RequestMethod.GET)
     public List getByName(@PathVariable String name) {
-        return contacts.stream().filter(x -> x.getNombre().equals(name)).collect(Collectors.toList());
+        return this.contactsRepository.findAll().stream().filter(x -> x.getNombre().equals(name)).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/searchByLastName/{lastName}", method = RequestMethod.GET)
     public List getByLastName(@PathVariable String lastName) {
-        return contacts.stream().filter(x -> x.getApellido().equals(lastName)).collect(Collectors.toList());
+        return this.contactsRepository.findAll().stream().filter(x -> x.getApellido().equals(lastName)).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/searchByEmail/{email}", method = RequestMethod.GET)
     public List getByEmail(@PathVariable String email) {
-        return contacts.stream().filter(x -> x.getEmail().equals(email)).collect(Collectors.toList());
+        return this.contactsRepository.findAll().stream().filter(x -> x.getEmail().equals(email)).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public List create(@RequestBody Contact newContact){
-        contacts.add(newContact);
-        return contacts;
+        this.contactsRepository.save(newContact);
+
+        return this.contactsRepository.findAll();
     }
 
     @RequestMapping(value = "/update/{number}", method = RequestMethod.PUT)
     public List update(@PathVariable Long number, @RequestBody Contact updateContact){
+        List<Contact> contacts = contactsRepository.findAll();
         for (Contact contact : contacts) {
             if (contact.getTelefono() == number){
-                contact.setNombre(updateContact.getNombre());
-                contact.setApellido(updateContact.getApellido());
-                contact.setEmail(updateContact.getEmail());
-                contact.setTelefono(updateContact.getTelefono());
+                contactsRepository.delete(contact);
+                contactsRepository.save(updateContact);
             }
         }
 
-        return contacts;
+        return contactsRepository.findAll();
     }
 
     @RequestMapping(value = "/delete/{number}", method = RequestMethod.DELETE)
     public List delete(@PathVariable Long number){
+        List<Contact> contacts = contactsRepository.findAll();
         for (Contact contact : contacts) {
             if (contact.getTelefono() == number) {
-                contacts.remove(contact);
+                contactsRepository.delete(contact);
                 break;
             }
         }
 
-        return contacts;
+        return contactsRepository.findAll();
     }
 }
