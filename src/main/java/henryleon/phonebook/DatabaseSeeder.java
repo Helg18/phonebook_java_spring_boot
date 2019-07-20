@@ -22,6 +22,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         contacts.add(new Contact("Henry", "Leon", "helg18@gmail.com", 584121234567L));
         contacts.add(new Contact("Alisson", "Leon", "aclm@gmail.com", 584241212121L));
         contacts.add(new Contact("Doris", "Mora", "dmmq@gmail.com", 584261478520L));
+        contacts.add(new Contact("Barbara", "Liskov", "bbll.solid@gmail.com", 582617894561L));
 
         contactsRepository.saveAll(contacts);
     }
