@@ -19,10 +19,11 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         List<Contact> contacts = new ArrayList<>();
-        contacts.add(new Contact("Henry", "Leon", "helg18@gmail.com", 584121234567L));
-        contacts.add(new Contact("Alisson", "Leon", "aclm@gmail.com", 584241212121L));
-        contacts.add(new Contact("Doris", "Mora", "dmmq@gmail.com", 584261478520L));
-        contacts.add(new Contact("Barbara", "Liskov", "bbll.solid@gmail.com", 582617894561L));
+        contacts.add(new Contact("Henry", "Leon", "helg18@gmail.com", 584129876543L));
+        contacts.add(new Contact("Alisson", "Leon", "al25@gmail.com", 972154602509L));
+        contacts.add(new Contact("Doris", "Mora", "dm00@gmail.com", 803497305610L));
+        contacts.add(new Contact("Barbara", "Liskov", "barbara@liskov.com", 803799607509L));
+        contacts.add(new Contact("Ada", "Lovelace", "ada@lovelace.com", 975034894037L));
 
         contactsRepository.saveAll(contacts);
     }
