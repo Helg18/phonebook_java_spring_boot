@@ -53,27 +53,15 @@ public class PhonebookController {
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
     public List update(@PathVariable Long id, @RequestBody Contact updateContact){
-        List<Contact> contacts = contactsRepository.findAll();
-        for (Contact contact : contacts) {
-            if (contact.getId() == id){
-                contactsRepository.delete(contact);
-                contactsRepository.save(updateContact);
-            }
-        }
+        contactsRepository.deleteById(id);
+        contactsRepository.save(updateContact);
 
         return contactsRepository.findAll();
     }
 
-    @RequestMapping(value = "/delete/{number}", method = RequestMethod.DELETE)
-    public List delete(@PathVariable Long number){
-        List<Contact> contacts = contactsRepository.findAll();
-        for (Contact contact : contacts) {
-            if (contact.getTelefono() == number) {
-                contactsRepository.delete(contact);
-                break;
-            }
-        }
-
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public List delete(@PathVariable Long id){
+        contactsRepository.deleteById(id);
         return contactsRepository.findAll();
     }
 }
