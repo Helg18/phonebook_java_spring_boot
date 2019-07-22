@@ -51,11 +51,11 @@ public class PhonebookController {
         return this.contactsRepository.findAll();
     }
 
-    @RequestMapping(value = "/update/{number}", method = RequestMethod.PUT)
-    public List update(@PathVariable Long number, @RequestBody Contact updateContact){
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    public List update(@PathVariable Long id, @RequestBody Contact updateContact){
         List<Contact> contacts = contactsRepository.findAll();
         for (Contact contact : contacts) {
-            if (contact.getTelefono() == number){
+            if (contact.getId() == id){
                 contactsRepository.delete(contact);
                 contactsRepository.save(updateContact);
             }
