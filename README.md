@@ -9,8 +9,8 @@ This app is just a test. It is not a functional project.
 > run java server \
 > go to localhost:8080/contacts/all
 
-### Licence
-This app is under GLP 3.0 Licence
+### License
+This app is under GLP 3.0 License
 
 ### Developed by
 Ing. Henry Leon.
